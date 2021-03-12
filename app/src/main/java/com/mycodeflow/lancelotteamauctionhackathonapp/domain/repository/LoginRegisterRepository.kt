@@ -1,9 +1,11 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -13,7 +15,12 @@ class LoginRegisterRepository {
         FirebaseAuth.getInstance()
     }
 
+    private val fireStore: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
+
     private val userMutableLiveData = MutableLiveData<FirebaseUser>()
+    val currentUser: LiveData<FirebaseUser> get() = userMutableLiveData
 
     suspend fun login(email: String, password: String) = withContext(Dispatchers.IO){
         firebaseAuth.signInWithEmailAndPassword(email, password)
