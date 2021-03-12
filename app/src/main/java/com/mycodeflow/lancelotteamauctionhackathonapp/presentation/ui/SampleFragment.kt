@@ -9,14 +9,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.SampleViewModel
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.SampleViewModelFactory
 import javax.inject.Inject
 
 class SampleFragment : Fragment() {
 
     @Inject lateinit var viewModelFactory: SampleViewModelFactory
-    private lateinit var viewModel: SampleViewModel
+    private lateinit var viewModel: LoginRegisterViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,7 +38,7 @@ class SampleFragment : Fragment() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(SampleViewModel::class.java)
+            .get(LoginRegisterViewModel::class.java)
     }
 
     companion object {

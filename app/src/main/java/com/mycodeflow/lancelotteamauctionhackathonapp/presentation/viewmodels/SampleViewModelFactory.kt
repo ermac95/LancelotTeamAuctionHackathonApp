@@ -9,9 +9,9 @@ import javax.inject.Inject
 @Suppress("UNCHECKED_CAST")
 class SampleViewModelFactory @Inject constructor(
     private val advListRepository: SampleRepository
-) : ViewModelProvider.Factory {
+) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when(modelClass){
-        SampleViewModel::class.java -> SampleViewModel(advListRepository)
+        LoginRegisterViewModel::class.java -> LoginRegisterViewModel(advListRepository)
         else -> throw IllegalArgumentException("wrong dependencies")
     } as T
 }
