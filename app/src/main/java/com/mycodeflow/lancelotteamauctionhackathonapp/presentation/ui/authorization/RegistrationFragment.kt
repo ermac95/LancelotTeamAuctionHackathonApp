@@ -10,11 +10,23 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
+import javax.inject.Inject
 
 class RegistrationFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: BaseViewModelFactory
+    private lateinit var viewModel : LoginRegisterViewModel
 
     private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
     private lateinit var registerButton: Button
@@ -23,15 +35,12 @@ class RegistrationFragment : Fragment() {
     private lateinit var userPass: EditText
     private lateinit var userConfirmPass: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is NewItemFirstPageFragment.HomeScreenActions){
             listener = context
         }
+        (requireActivity().application as MyApp).appComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -45,6 +54,7 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         setupRegistration()
+        setUpModel()
     }
 
     private fun setupViews(view: View) {
@@ -55,10 +65,34 @@ class RegistrationFragment : Fragment() {
         registerButton = view.findViewById(R.id.register_button)
     }
 
+    fun setUpModel() {
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginRegisterViewModel::class.java)
+        viewModel.currentUser.observe(this.viewLifecycleOwner, {
+            openFragment(FragsNav.LS)
+        })
+    }
 
     private fun setupRegistration() {
         registerButton.setOnClickListener{
-            //TODO
+            when {
+                TextUtils.isEmpty(userName.text.toString()) -> {
+                    userName.error = "Please enter your name"
+                    return@setOnClickListener
+                }
+                TextUtils.isEmpty(userEmail.text.toString()) -> {
+                    userEmail.error = "Please enter your email"
+                    return@setOnClickListener
+                }
+                TextUtils.isEmpty(userPass.text.toString()) -> {
+                    userPass.error = "Please enter your password"
+                    return@setOnClickListener
+                }
+                TextUtils.isEmpty(userConfirmPass.text.toString()) -> {
+                    userConfirmPass.error = "Please confirm your password"
+                    return@setOnClickListener
+                }
+                else -> viewModel.register(userName.text.toString(), userPass.text.toString())
+            }
         }
     }
 

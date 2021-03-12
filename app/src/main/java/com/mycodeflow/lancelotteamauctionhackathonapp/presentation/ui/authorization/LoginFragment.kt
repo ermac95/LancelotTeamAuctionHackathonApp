@@ -3,25 +3,30 @@ package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authoriza
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.SampleViewModel
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.SampleViewModelFactory
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: SampleViewModelFactory
-    private lateinit var viewModel : SampleViewModel
+    lateinit var viewModelFactory: BaseViewModelFactory
+    private lateinit var viewModel : LoginRegisterViewModel
 
     private lateinit var loginButton: Button
     private lateinit var registerButton: TextView
@@ -29,16 +34,12 @@ class LoginFragment : Fragment() {
     private lateinit var userPass: EditText
     private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //TODO
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is NewItemFirstPageFragment.HomeScreenActions){
             listener = context
         }
+        (requireActivity().application as MyApp).appComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -52,6 +53,14 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         setupLogin()
+        setUpModel()
+    }
+
+    fun setUpModel() {
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginRegisterViewModel::class.java)
+        viewModel.currentUser.observe(this.viewLifecycleOwner, {
+            openFragment(FragsNav.AS)
+        })
     }
 
     private fun setupViews(view: View) {
@@ -59,6 +68,10 @@ class LoginFragment : Fragment() {
         registerButton = view.findViewById(R.id.register_now_button)
         userName = view.findViewById(R.id.login_user_name)
         userPass = view.findViewById(R.id.login_user_password)
+        registerButton.setOnClickListener {
+            Log.d("clicklist", "")
+            openFragment(FragsNav.RS)
+        }
     }
 
     private fun setupLogin() {
@@ -71,10 +84,8 @@ class LoginFragment : Fragment() {
                 return@setOnClickListener
             }
             //TODO
-
-            registerButton.setOnClickListener {
-                openFragment(FragsNav.RS)
-            }
+//            viewModel.login(userName.text.toString(), userPass.text.toString())
+            openFragment(FragsNav.RS)
         }
     }
 

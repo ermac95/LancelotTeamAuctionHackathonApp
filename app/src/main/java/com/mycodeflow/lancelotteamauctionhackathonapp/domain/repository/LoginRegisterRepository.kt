@@ -8,8 +8,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginRegisterRepository {
+class LoginRegisterRepository @Inject constructor() {
 
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -43,7 +44,7 @@ class LoginRegisterRepository {
                     // currentUserDb?.child("user_email")?.setValue(userEmail.text.toString())
                     //openFragment(FragsNav.LS)
                 } else {
-                    Log.d("myLogs", "Failed to login, try again")
+                    Log.d("myLogs", "Failed to registration, try again")
                 }
             }
     }
