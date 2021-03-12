@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "480015165829",
+    "project_id": "auctionbylancelotteam",
+    "storage_bucket": "auctionbylancelotteam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480015165829:android:fb5084a525f749801f7cec",
+        "android_client_info": {
+          "package_name": "com.mycodeflow.lancelotteamauctionhackathonapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480015165829-u946k8s311are9lskm5n7mjnm6c2smvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJXM7bp3VbaZ9D5NXBjx5bQ_HRwNPouPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480015165829-u946k8s311are9lskm5n7mjnm6c2smvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
