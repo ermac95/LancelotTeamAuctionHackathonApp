@@ -19,10 +19,7 @@ class LoginRegisterViewModel @Inject constructor(
 
 //    private val _user = MutableLiveData<FirebaseUser>()
 //    val user : LiveData<FirebaseUser> get() = _user
-
-
-
-
+    val currentUser = loginRegisterRepository.currentUser
 
 
     fun login(email: String, password: String) {
