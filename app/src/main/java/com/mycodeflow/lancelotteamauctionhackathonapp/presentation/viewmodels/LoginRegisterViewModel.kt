@@ -2,26 +2,29 @@ package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseUser
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
-import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.SampleRepository
+import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.LoginRegisterRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.AuthListener
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginRegisterViewModel @Inject constructor(
-        val advListRepository: SampleRepository
+    private val loginRegisterRepository: LoginRegisterRepository
 ) : ViewModel() {
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.e(this::class.java.simpleName, "CoroutineExceptionHandler:$throwable")
     }
 
-    //private val _user = MutableLiveData<ProfileUser>()
+//    private val _user = MutableLiveData<FirebaseUser>()
+//    val user : LiveData<FirebaseUser> get() = _user
+
     var authListener: AuthListener? = null
-//    userLiveData = authAppRepository.getUserLiveData();
 
 
 
@@ -34,7 +37,7 @@ class LoginRegisterViewModel @Inject constructor(
         authListener?.onStarted()
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            //advListRepository.login(email, password)
+            loginRegisterRepository.login(email, password)
         }
 
 
@@ -49,8 +52,8 @@ class LoginRegisterViewModel @Inject constructor(
         authListener?.onStarted()
 
         viewModelScope.launch(coroutineExceptionHandler) {
-            //advListRepository.register(email, password)
-            // TODO: Сохраение нового пользователья в БД
+            loginRegisterRepository.register(email, password)
+
         }
     }
 
