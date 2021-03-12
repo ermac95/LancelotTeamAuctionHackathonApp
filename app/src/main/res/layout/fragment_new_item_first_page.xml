@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.create.NewItemFirstPageFragment">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/icon_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/header_appearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appearance"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="@id/back_button"
+        app:layout_constraintTop_toTopOf="@id/back_button"
+        tools:layout_editor_absoluteX="150dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+    <TextView
+        android:id="@+id/header_pictures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pictures"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="@id/header_appearance"
+        app:layout_constraintTop_toBottomOf="@id/header_appearance"
+        tools:layout_editor_absoluteX="150dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pictures_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toStartOf="@id/header_pictures"
+        app:layout_constraintTop_toBottomOf="@id/header_pictures"
+        />
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/item_title"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/header_pictures"
+        app:layout_constraintTop_toBottomOf="@id/pictures_slider" />
+
+    <EditText
+        android:id="@+id/field_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_field_bg"
+        app:boxBackgroundMode="none"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:hint="@string/enter_your_item_title"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintStart_toStartOf="@id/header_title"
+        app:layout_constraintTop_toBottomOf="@id/header_title" />
+
+    <TextView
+        android:id="@+id/header_bet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/initial_bet"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/header_title"
+        app:layout_constraintTop_toBottomOf="@id/field_title" />
+
+    <EditText
+        android:id="@+id/field_bet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_field_bg"
+        app:boxBackgroundMode="none"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:hint="@string/enter_the_amount_of_initial_bet"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintStart_toStartOf="@id/header_bet"
+        app:layout_constraintTop_toBottomOf="@id/header_bet" />
+
+    <TextView
+        android:id="@+id/header_bet_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/bet_step"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/header_title"
+        app:layout_constraintTop_toBottomOf="@id/field_bet" />
+
+    <EditText
+        android:id="@+id/field_bet_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_field_bg"
+        app:boxBackgroundMode="none"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:hint="@string/enter_the_amount_of_initial_bet"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintStart_toStartOf="@id/header_bet_step"
+        app:layout_constraintTop_toBottomOf="@id/header_bet_step" />
+
+    <Button
+        android:id="@+id/continue_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="@string/next_button"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

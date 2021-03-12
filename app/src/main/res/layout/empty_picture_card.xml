@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_picture_card"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:background="@color/bg_gray"
+    android:layout_marginRight="7dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_bg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/icon_add_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/description_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/add_a_picture"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_bg"
+        app:layout_constraintVertical_bias="0.238" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

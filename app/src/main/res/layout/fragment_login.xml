@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/login_bk_color"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    tools:context=".presentation.ui.authorization.LoginFragment"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/login_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/viewParent.headerText.NoMode"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="Уже есть \nучетная запись?" />
+
+            </RelativeLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/login_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:hint="@string/username"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/login_user_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:hint="@string/edit_text_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/viewParent"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="@string/login"
+                />
+
+            <TextView
+                android:id="@+id/register_now_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/new_user_register_now"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:weightSum="12">
+
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

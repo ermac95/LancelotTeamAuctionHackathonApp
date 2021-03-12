@@ -1,11 +1,10 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.di
 
 import android.content.Context
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.SampleFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdsListFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
-
 
 @Singleton
 @Component(modules = [SampleModule::class])
@@ -16,5 +15,6 @@ interface AppComponent {
         fun create(@BindsInstance context: Context): AppComponent
     }
 
-    fun inject(frag: SampleFragment)
+    fun inject(frag: AdsListFragment)
+
 }
