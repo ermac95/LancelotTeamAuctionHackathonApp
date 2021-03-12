@@ -14,7 +14,7 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.R
 class AdsListFragment : Fragment() {
 
     private lateinit var newAdButton: FloatingActionButton
-    private lateinit var rvAdssList: RecyclerView
+    private lateinit var rvAdsList: RecyclerView
     private var listener: ButtonClickListener? = null
 
     override fun onAttach(context: Context) {
@@ -34,8 +34,8 @@ class AdsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //recycler initialization
-        rvAdssList = view.findViewById(R.id.ads_list)
-        rvAdssList.adapter = AdsListAdapter()
+        rvAdsList = view.findViewById(R.id.ads_list)
+        rvAdsList.adapter = AdsListAdapter()
         //bottom navigation
         view.findViewById<BottomNavigationView>(R.id.bottom_nav_view).apply {
             background = null

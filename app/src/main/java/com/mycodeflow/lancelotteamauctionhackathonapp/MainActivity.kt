@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdsListFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.LoginFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.RegistrationFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemSecondPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemThirdPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
 class MainActivity : AppCompatActivity() {
@@ -25,13 +28,13 @@ class MainActivity : AppCompatActivity() {
                 startFragment(AdsListFragment.newInstance())
             }
             FragsNav.NI1 -> {
-
+                startFragment(NewItemFirstPageFragment.newInstance())
             }
             FragsNav.NI2 -> {
-
+                startFragment(NewItemSecondPageFragment.newInstance())
             }
             FragsNav.NI3 -> {
-
+                startFragment(NewItemThirdPageFragment.newInstance())
             }
             FragsNav.LS -> {
                 startFragment(LoginFragment.newInstance())

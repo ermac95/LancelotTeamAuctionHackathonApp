@@ -2,6 +2,7 @@ package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authoriza
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.SampleViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.SampleViewModelFactory
+import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import javax.inject.Inject
 
 class LoginFragment : Fragment() {
@@ -24,13 +27,18 @@ class LoginFragment : Fragment() {
     private lateinit var registerButton: TextView
     private lateinit var userName: EditText
     private lateinit var userPass: EditText
+    private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //TODO
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        if (context is NewItemFirstPageFragment.HomeScreenActions){
+            listener = context
+        }
     }
 
     override fun onCreateView(
@@ -43,6 +51,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
+        setupLogin()
     }
 
     private fun setupViews(view: View) {
@@ -50,6 +59,27 @@ class LoginFragment : Fragment() {
         registerButton = view.findViewById(R.id.register_now_button)
         userName = view.findViewById(R.id.login_user_name)
         userPass = view.findViewById(R.id.login_user_password)
+    }
+
+    private fun setupLogin() {
+        loginButton.setOnClickListener {
+            if (TextUtils.isEmpty(userName.text.toString())) {
+                userName.error = "Please enter username"
+                return@setOnClickListener
+            } else if (TextUtils.isEmpty(userPass.text.toString())) {
+                userPass.error = "Please enter user password"
+                return@setOnClickListener
+            }
+            //TODO
+
+            registerButton.setOnClickListener {
+                openFragment(FragsNav.RS)
+            }
+        }
+    }
+
+    private fun openFragment(frag: FragsNav){
+        listener?.forwardPageTransaction(frag)
     }
 
     companion object {
