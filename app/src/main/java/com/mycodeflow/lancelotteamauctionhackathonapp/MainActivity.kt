@@ -48,5 +48,4 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(fragment::class.java.name)
                 .commit()
     }
-
 }

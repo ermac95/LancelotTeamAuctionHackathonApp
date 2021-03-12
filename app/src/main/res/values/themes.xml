@@ -28,4 +28,6 @@
     <style name="viewParent.headerText.NoMode">
         <item name="android:textColor">@color/darkTextColor</item>
     </style>
+
 </resources>
+

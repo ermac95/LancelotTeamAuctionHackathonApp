@@ -12,12 +12,10 @@ class RegistrationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
     }
 
     override fun onCreateView(
