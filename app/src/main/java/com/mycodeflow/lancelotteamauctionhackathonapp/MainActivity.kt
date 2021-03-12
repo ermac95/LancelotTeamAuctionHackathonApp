@@ -3,7 +3,12 @@ package com.mycodeflow.lancelotteamauctionhackathonapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.SampleFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdsListFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.LoginFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.RegistrationFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemSecondPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemThirdPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
 class MainActivity : AppCompatActivity() {
@@ -13,14 +18,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //navigation
         if (savedInstanceState == null){
-            navigateTo(FragsNav.HS)
+            navigateTo(FragsNav.RS)
         }
     }
 
     private fun navigateTo(fragment: FragsNav) {
         when(fragment){
-            FragsNav.HS -> {
-                startFragment(SampleFragment.newInstance())
+            FragsNav.AS -> {
+                startFragment(AdsListFragment.newInstance())
+            }
+            FragsNav.NI1 -> {
+                startFragment(NewItemFirstPageFragment.newInstance())
+            }
+            FragsNav.NI2 -> {
+                startFragment(NewItemSecondPageFragment.newInstance())
+            }
+            FragsNav.NI3 -> {
+                startFragment(NewItemThirdPageFragment.newInstance())
+            }
+            FragsNav.LS -> {
+                startFragment(LoginFragment.newInstance())
+            }
+            FragsNav.RS -> {
+                startFragment(RegistrationFragment.newInstance())
             }
         }
     }
@@ -31,5 +51,4 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(fragment::class.java.name)
                 .commit()
     }
-
 }
