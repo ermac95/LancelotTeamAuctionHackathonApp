@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
-import com.squareup.picasso.Picasso
 
 class AdvDetailsViewPagerAdapter : RecyclerView.Adapter<DetailsPagerViewHolder>() {
 
