@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 
 class AdsListAdapter(
-        private var listener: AdsListFragment.AdDetailsClickListener?
+        private var listener: BaseFragment.HomeScreenActions?
 ) : RecyclerView.Adapter<AdItemViewHolder>() {
 
     private var advertisements: List<Advertisement> = emptyList()
@@ -24,7 +25,7 @@ class AdsListAdapter(
     override fun onBindViewHolder(holder: AdItemViewHolder, position: Int) {
         holder.onBind(advertisements[position])
         holder.itemView.setOnClickListener {
-            listener?.onClick(advertisements[position].id)
+            listener?.navigateToDetails(advertisements[position].id)
         }
     }
 
