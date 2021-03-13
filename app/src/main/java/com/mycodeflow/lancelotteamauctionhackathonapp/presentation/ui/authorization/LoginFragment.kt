@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import javax.inject.Inject
 
@@ -72,7 +72,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    fun setUpModel() {
+    private fun setUpModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(LoginRegisterViewModel::class.java)
         viewModel.currentUser.observe(this.viewLifecycleOwner, {
             openFragment(FragsNav.AS)

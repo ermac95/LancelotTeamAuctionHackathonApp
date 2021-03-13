@@ -8,16 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
@@ -34,6 +29,7 @@ class RegistrationFragment : BaseFragment() {
     private lateinit var userEmail: EditText
     private lateinit var userPass: EditText
     private lateinit var userConfirmPass: EditText
+    private lateinit var login_button: TextView
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,9 +58,13 @@ class RegistrationFragment : BaseFragment() {
         userPass = view.findViewById(R.id.editTextPassword)
         userConfirmPass = view.findViewById(R.id.editTextConfPassword)
         registerButton = view.findViewById(R.id.register_button)
+        login_button = view.findViewById(R.id.login_button)
+        login_button.setOnClickListener {
+            openFragment(FragsNav.LS)
+        }
     }
 
-    fun setUpModel() {
+    private fun setUpModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(LoginRegisterViewModel::class.java)
         viewModel.currentUser.observe(this.viewLifecycleOwner, {
             openFragment(FragsNav.LS)
