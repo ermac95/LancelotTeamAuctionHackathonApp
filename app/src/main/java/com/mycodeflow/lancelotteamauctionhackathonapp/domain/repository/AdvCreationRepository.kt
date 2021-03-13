@@ -1,10 +1,11 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository
 
-import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AdvCreationRepository @Inject constructor(
@@ -15,17 +16,17 @@ class AdvCreationRepository @Inject constructor(
     private val collection = fireStore.collection("advertisements")
 
     suspend fun uploadAdvToDataBase(
-        _title: String,
-        _poster: Uri,
-        _images: List<ItemImage>,
-        _price: String,
-        _description: String,
-        _date: String,
-        _time: String
-    ): Advertisement {
+        _title: String?,
+        _images: List<ItemImage>?,
+        _price: Float,
+        _betStep: Float,
+        _description: String?,
+        _date: String?,
+        _time: String?
+    ): Advertisement = withContext(Dispatchers.IO) {
         val uniqueId = createUniqueId()
         val currentUserUid = firebaseAuth.currentUser.uid
-        val poster = _images[0].bgImage
+        val poster = _images?.get(0)?.bgImage
         val advertisement = Advertisement(
             id = uniqueId,
             ownerUid = currentUserUid,
@@ -33,13 +34,14 @@ class AdvCreationRepository @Inject constructor(
             poster = poster,
             images = _images,
             price = _price,
+            betStep = _betStep,
             description = _description,
             date = _date,
             time = _time,
             participators = null
         )
         loadAdvToDatabase(advertisement)
-        return advertisement
+        advertisement
     }
 
     private fun loadAdvToDatabase(advertisement: Advertisement) {
