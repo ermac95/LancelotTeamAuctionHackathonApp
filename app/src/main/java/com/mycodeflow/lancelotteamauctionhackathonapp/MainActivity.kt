@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
         //navigation
         if (savedInstanceState == null){
             navigateTo(FragsNav.LS)
-            //navigateToDetails("FQyYWGehtMv1trh3OmiO")
+            navigateToDetails("FQyYWGehtMv1trh3OmiO")
         }
     }
 

@@ -119,7 +119,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         tvStartDate.text = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
         tvEndOfRegistrationDate.text = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
 
-        //adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
+        adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
 
     }
 

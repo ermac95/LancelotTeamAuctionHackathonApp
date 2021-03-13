@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 import com.squareup.picasso.Picasso
@@ -36,7 +37,8 @@ class DetailsPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val ivItem: ImageView = itemView.findViewById(R.id.ivDetailsItem)
 
     fun bind(itemImage: ItemImage) {
-        Picasso.get().load(itemImage.bgImage)
+        Glide.with(itemView)
+            .load(itemImage.bgImage)
             .placeholder(R.drawable.ic_image_24)
             .into(ivItem)
     }
