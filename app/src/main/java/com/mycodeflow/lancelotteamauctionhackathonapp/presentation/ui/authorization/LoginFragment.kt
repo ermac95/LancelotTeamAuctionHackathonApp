@@ -10,19 +10,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import javax.inject.Inject
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
@@ -30,13 +27,13 @@ class LoginFragment : Fragment() {
 
     private lateinit var loginButton: Button
     private lateinit var registerButton: TextView
-    private lateinit var userName: EditText
+    private lateinit var userEmail: EditText
     private lateinit var userPass: EditText
-    private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
+    private lateinit var listener: HomeScreenActions
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is NewItemFirstPageFragment.HomeScreenActions){
+        if (context is HomeScreenActions){
             listener = context
         }
         (requireActivity().application as MyApp).appComponent.inject(this)
@@ -52,8 +49,27 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
-        setupLogin()
+        setupListeners()
         setUpModel()
+    }
+
+    private fun setupListeners() {
+        registerButton.setOnClickListener {
+            Log.d("myLogs", "Click on register button, listener = $listener")
+            openFragment(FragsNav.RS)
+        }
+
+        loginButton.setOnClickListener {
+            if (TextUtils.isEmpty(userEmail.text.toString())) {
+                userEmail.error = "Please enter username"
+                return@setOnClickListener
+            } else if (TextUtils.isEmpty(userPass.text.toString())) {
+                userPass.error = "Please enter user password"
+                return@setOnClickListener
+            }
+            //TODO
+//            viewModel.login(userName.text.toString(), userPass.text.toString())
+        }
     }
 
     fun setUpModel() {
@@ -66,27 +82,8 @@ class LoginFragment : Fragment() {
     private fun setupViews(view: View) {
         loginButton = view.findViewById(R.id.login_button)
         registerButton = view.findViewById(R.id.register_now_button)
-        userName = view.findViewById(R.id.login_user_name)
+        userEmail = view.findViewById(R.id.login_user_email)
         userPass = view.findViewById(R.id.login_user_password)
-        registerButton.setOnClickListener {
-            Log.d("clicklist", "")
-            openFragment(FragsNav.RS)
-        }
-    }
-
-    private fun setupLogin() {
-        loginButton.setOnClickListener {
-            if (TextUtils.isEmpty(userName.text.toString())) {
-                userName.error = "Please enter username"
-                return@setOnClickListener
-            } else if (TextUtils.isEmpty(userPass.text.toString())) {
-                userPass.error = "Please enter user password"
-                return@setOnClickListener
-            }
-            //TODO
-//            viewModel.login(userName.text.toString(), userPass.text.toString())
-            openFragment(FragsNav.RS)
-        }
     }
 
     private fun openFragment(frag: FragsNav){

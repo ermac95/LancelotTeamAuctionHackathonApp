@@ -13,11 +13,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NewItemThirdPageFragment : Fragment() {
+class NewItemThirdPageFragment : BaseFragment() {
 
     private lateinit var backButton: ImageView
     private lateinit var datePickButton: Button
@@ -25,14 +26,14 @@ class NewItemThirdPageFragment : Fragment() {
     private lateinit var timePickButton: Button
     private lateinit var fieldTime: TextView
     private lateinit var postButton: Button
-    private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
+    private var listener: HomeScreenActions? = null
     private val cal = Calendar.getInstance()
     private var dateOfAuction: String? = null
     private var timeOfAuction: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is NewItemFirstPageFragment.HomeScreenActions){
+        if (context is HomeScreenActions){
             listener = context
         }
     }

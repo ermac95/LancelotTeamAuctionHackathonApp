@@ -11,11 +11,12 @@ import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     private lateinit var viewModel : LoginRegisterViewModel
 
@@ -25,7 +26,7 @@ class ProfileFragment : Fragment() {
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
     private lateinit var logOutButton: Button
-    private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
+    private var listener: HomeScreenActions? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,7 @@ class ProfileFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is NewItemFirstPageFragment.HomeScreenActions){
+        if (context is HomeScreenActions){
             listener = context
         }
     }

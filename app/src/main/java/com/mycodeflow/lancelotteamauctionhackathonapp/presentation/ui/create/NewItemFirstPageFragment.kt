@@ -10,9 +10,10 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
-class NewItemFirstPageFragment : Fragment() {
+class NewItemFirstPageFragment : BaseFragment() {
 
     private var listener: HomeScreenActions? = null
     private lateinit var backButton: ImageView
@@ -57,11 +58,6 @@ class NewItemFirstPageFragment : Fragment() {
         }
     }
 
-
-    interface HomeScreenActions {
-        fun backPageTransaction()
-        fun forwardPageTransaction(frag: FragsNav)
-    }
 
     companion object {
         fun newInstance() = NewItemFirstPageFragment()

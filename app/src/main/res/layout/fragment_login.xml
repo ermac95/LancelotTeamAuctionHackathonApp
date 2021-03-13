@@ -44,11 +44,11 @@
                 android:layout_marginTop="20dp">
 
                 <EditText
-                    android:id="@+id/login_user_name"
+                    android:id="@+id/login_user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:hint="@string/username"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 

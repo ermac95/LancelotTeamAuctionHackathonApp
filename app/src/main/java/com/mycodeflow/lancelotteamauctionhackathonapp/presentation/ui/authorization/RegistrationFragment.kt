@@ -16,28 +16,28 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.LoginRegisterViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import javax.inject.Inject
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
     private lateinit var viewModel : LoginRegisterViewModel
 
-    private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
+    private var listener: HomeScreenActions? = null
     private lateinit var registerButton: Button
-    private lateinit var userName: EditText
     private lateinit var userEmail: EditText
     private lateinit var userPass: EditText
     private lateinit var userConfirmPass: EditText
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is NewItemFirstPageFragment.HomeScreenActions){
+        if (context is HomeScreenActions){
             listener = context
         }
         (requireActivity().application as MyApp).appComponent.inject(this)
@@ -58,7 +58,6 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun setupViews(view: View) {
-        userName = view.findViewById(R.id.editTextName)
         userEmail = view.findViewById(R.id.editTextEmail)
         userPass = view.findViewById(R.id.editTextPassword)
         userConfirmPass = view.findViewById(R.id.editTextConfPassword)
@@ -75,10 +74,6 @@ class RegistrationFragment : Fragment() {
     private fun setupRegistration() {
         registerButton.setOnClickListener{
             when {
-                TextUtils.isEmpty(userName.text.toString()) -> {
-                    userName.error = "Please enter your name"
-                    return@setOnClickListener
-                }
                 TextUtils.isEmpty(userEmail.text.toString()) -> {
                     userEmail.error = "Please enter your email"
                     return@setOnClickListener

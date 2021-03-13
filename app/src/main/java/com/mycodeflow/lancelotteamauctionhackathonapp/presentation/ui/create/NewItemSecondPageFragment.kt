@@ -9,17 +9,18 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
-class NewItemSecondPageFragment : Fragment() {
+class NewItemSecondPageFragment : BaseFragment() {
 
     private lateinit var backButton: ImageView
     private lateinit var nextButton: Button
-    private var listener: NewItemFirstPageFragment.HomeScreenActions? = null
+    private var listener: HomeScreenActions? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is NewItemFirstPageFragment.HomeScreenActions){
+        if (context is HomeScreenActions){
             listener = context
         }
     }

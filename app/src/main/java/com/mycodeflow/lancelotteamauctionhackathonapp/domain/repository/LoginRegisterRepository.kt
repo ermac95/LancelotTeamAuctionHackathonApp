@@ -30,6 +30,7 @@ class LoginRegisterRepository @Inject constructor() {
                     userMutableLiveData.postValue(firebaseAuth.currentUser)
                 } else {
                     Log.d("myLogs", "Failed to login, try again")
+                    Log.d("Error", it.exception?.message.toString());
                 }
             }
     }
@@ -39,13 +40,28 @@ class LoginRegisterRepository @Inject constructor() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     userMutableLiveData.postValue(firebaseAuth.currentUser)
+                    //val newUser = getUserCreated(firebaseAuth.currentUser.uid)
                     //val currentUserDb = dataBaseReference?.child(currentUser.uid)
                     // currentUserDb?.child("user_name")?.setValue(userName.text.toString())
                     // currentUserDb?.child("user_email")?.setValue(userEmail.text.toString())
                     //openFragment(FragsNav.LS)
                 } else {
                     Log.d("myLogs", "Failed to registration, try again")
+                    Log.d("Error", it.exception?.message.toString());
                 }
             }
     }
+
+    /*
+    private fun getUserCreated(email: String, password: String): UserModel {
+        return UserModel(
+            id = firebaseAuth.currentUser.uid,
+            name = "John Doe",
+            email = email,
+            pass = pass,
+            profilePic = null,
+            adsList = null
+        )
+    }
+     */
 }
