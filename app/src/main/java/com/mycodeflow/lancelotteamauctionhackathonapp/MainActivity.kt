@@ -14,7 +14,7 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.New
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
 class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
-    AdsListFragment.ButtonClickListener, AdsListFragment.AdDetailsClickListener {
+    AdsListFragment.ButtonClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,13 +76,5 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
             .replace(R.id.main_container, NewItemFirstPageFragment.newInstance())
             .addToBackStack(null)
             .commit()
-    }
-
-    //TODO ID
-    override fun onClick(adId: String) {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, AdvertisementDetailFragment.newInstance(adId))
-                .addToBackStack(null)
-                .commit()
     }
 }
