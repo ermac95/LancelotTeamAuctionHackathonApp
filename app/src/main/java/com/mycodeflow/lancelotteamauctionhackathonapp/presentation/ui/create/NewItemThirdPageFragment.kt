@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +13,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.NewItemViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 class NewItemThirdPageFragment : BaseFragment() {
 
@@ -31,11 +37,16 @@ class NewItemThirdPageFragment : BaseFragment() {
     private var dateOfAuction: String? = null
     private var timeOfAuction: String? = null
 
+    @Inject
+    lateinit var viewModelFactory: BaseViewModelFactory
+    private lateinit var viewModel : NewItemViewModel
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is HomeScreenActions){
             listener = context
         }
+        (requireActivity().application as MyApp).appComponent.inject(this)
     }
 
     override fun onCreateView(
@@ -49,6 +60,7 @@ class NewItemThirdPageFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         setupListeners()
+        setUpViewModel()
     }
 
     private fun setupViews(view: View){
@@ -59,6 +71,10 @@ class NewItemThirdPageFragment : BaseFragment() {
         timePickButton = view.findViewById(R.id.time_pick_button)
         fieldTime = view.findViewById(R.id.field_time)
         postButton = view.findViewById(R.id.post_button)
+    }
+
+    private fun setUpViewModel() {
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewItemViewModel::class.java)
     }
 
     private fun setupListeners() {
@@ -87,7 +103,23 @@ class NewItemThirdPageFragment : BaseFragment() {
         }
         //post button
         postButton.setOnClickListener{
-            listener?.forwardPageTransaction(FragsNav.AS)
+            val dateText = fieldDate.text.toString()
+            val timeText = fieldTime.text.toString()
+            when {
+                dateText.contains("Select") -> {
+                    fieldDate.error = "Select date"
+                    return@setOnClickListener
+                }
+                timeText.contains("Select") -> {
+                    fieldTime.error = "Select time"
+                    return@setOnClickListener
+                }
+                else -> {
+                    viewModel.setSecondPageDataAndPost(dateText, timeText)
+                    Log.d("viewModel", "timeText - $dateText, dateText - $timeText")
+                    listener?.forwardPageTransaction(FragsNav.AS)
+                }
+            }
         }
     }
 

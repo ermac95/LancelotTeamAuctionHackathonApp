@@ -1,8 +1,12 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.di
 
 import android.content.Context
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.LoginFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.RegistrationFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemSecondPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemThirdPageFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -19,5 +23,11 @@ interface AppComponent {
     fun inject(frag: LoginFragment)
 
     fun inject(frag: RegistrationFragment)
+
+    fun inject(frag: NewItemFirstPageFragment)
+
+    fun inject(frag: NewItemSecondPageFragment)
+
+    fun inject(frag: NewItemThirdPageFragment)
 
 }

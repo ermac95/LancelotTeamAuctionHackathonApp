@@ -21,7 +21,7 @@ class NewItemViewModel @Inject constructor(
     private val mutableAdvertisementItem = MutableLiveData<Advertisement>()
     val advertisementItem: LiveData<Advertisement> get() = mutableAdvertisementItem
 
-    private var _images: List<ItemImage>? = emptyList()
+    private var _images: List<ItemImage>? = null
     private var _title: String? = null
     private var _initialBet: Float = 0.0f
     private var _betStep: Float = 0.0f

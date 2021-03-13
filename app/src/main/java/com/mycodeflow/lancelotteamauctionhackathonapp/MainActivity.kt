@@ -12,7 +12,8 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.New
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemThirdPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
 
-class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions {
+class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
+    AdsListFragment.ButtonClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,5 +60,12 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions {
 
     override fun forwardPageTransaction(frag: FragsNav) {
         navigateTo(frag)
+    }
+
+    override fun createNewAd() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, NewItemFirstPageFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
     }
 }
