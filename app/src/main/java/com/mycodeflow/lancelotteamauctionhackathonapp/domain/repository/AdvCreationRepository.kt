@@ -3,6 +3,7 @@ package com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 import kotlinx.coroutines.Dispatchers
@@ -75,6 +76,23 @@ class AdvCreationRepository @Inject constructor(
             .set(advertisement)
             .addOnCompleteListener { Log.d("myLogs", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.d("myLogs", "Error writing document", e) }
+    }
+
+    suspend fun getAdvertisementList(): List<Advertisement> = withContext(Dispatchers.IO){
+        val adsList: ArrayList<Advertisement> = ArrayList()
+        fireStore.collection("advertisements")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("myLogs", "${document.id} => ${document.data}")
+                    val advertisement = document.toObject<Advertisement>()
+                    adsList.add(advertisement)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("myLogs", "Error getting documents: ", exception)
+            }
+        adsList
     }
 
     private fun createUniqueId(): String {

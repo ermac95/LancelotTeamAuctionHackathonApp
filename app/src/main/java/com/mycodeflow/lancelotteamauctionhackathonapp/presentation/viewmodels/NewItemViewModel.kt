@@ -20,6 +20,9 @@ class NewItemViewModel @Inject constructor(
     private val mutableAdvertisementItem = MutableLiveData<Advertisement>()
     val advertisementItem: LiveData<Advertisement> get() = mutableAdvertisementItem
 
+    private val mutableAdsList = MutableLiveData<Advertisement>()
+    val adsList: LiveData<Advertisement> get() = mutableAdsList
+
 
     fun setFirstPageData(images: List<ItemImage>, title: String, initialBet: Float, betStep: Float) {
         coroutineScope.launch {
@@ -36,6 +39,12 @@ class NewItemViewModel @Inject constructor(
     fun setSecondPageDataAndPost(date: String, time: String) {
         coroutineScope.launch{
             advCreationRepository.loadThirdPageDataAndPost(date, time)
+        }
+    }
+
+    fun updateAdvertisementData(){
+        coroutineScope.launch {
+            advCreationRepository.getAdvertisementList()
         }
     }
 }
