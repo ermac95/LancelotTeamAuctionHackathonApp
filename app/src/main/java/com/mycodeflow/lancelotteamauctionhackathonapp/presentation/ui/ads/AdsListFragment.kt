@@ -14,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.NewItemViewModel
 import javax.inject.Inject
@@ -23,6 +24,7 @@ class AdsListFragment : Fragment() {
     private lateinit var newAdButton: FloatingActionButton
     private lateinit var rvAdsList: RecyclerView
     private var listener: ButtonClickListener? = null
+    private var adListener: BaseFragment.HomeScreenActions? = null
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
@@ -32,6 +34,9 @@ class AdsListFragment : Fragment() {
         super.onAttach(context)
         if (context is ButtonClickListener){
             listener = context
+        }
+        if (context is BaseFragment.HomeScreenActions){
+            adListener = context
         }
         (requireActivity().application as MyApp).appComponent.inject(this)
     }
@@ -48,7 +53,7 @@ class AdsListFragment : Fragment() {
 
         //recycler initialization
         rvAdsList = view.findViewById(R.id.ads_list)
-        rvAdsList.adapter = AdsListAdapter()
+        rvAdsList.adapter = AdsListAdapter(adListener)
         //bottom navigation
         view.findViewById<BottomNavigationView>(R.id.bottom_nav_view).apply {
             background = null

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
+import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.AdvCreationRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.AdvDetailRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.LoginRegisterRepository
@@ -24,6 +25,7 @@ class DetailsViewModel @Inject constructor(
     val ad: LiveData<Advertisement> get() = mutableAd
 
     fun loadAd(adId: String) {
+        Log.d("ad_d", "${mutableAd.value} adId $adId")
         viewModelScope.launch(coroutineExceptionHandler) {
             mutableAd.value = advDetailRepository.getAdvertisementById(adId)
         }
@@ -32,6 +34,4 @@ class DetailsViewModel @Inject constructor(
     fun registerOnAd(adId: String) {
 
     }
-
-
 }

@@ -39,6 +39,7 @@ class AdvertisementDetailFragment : BaseFragment() {
     private lateinit var btnRegister: Button
     private lateinit var viewPagerContainer: LinearLayout
     private lateinit var adsImages: ViewPager2
+    private lateinit var state: TextView
 
     private var adId: String? = null
 
@@ -88,7 +89,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         btnRegister = view.findViewById(R.id.btn_auction_reg_or_betUp)
         viewPagerContainer = view.findViewById(R.id.viewpager_container)
         adsImages = view.findViewById(R.id.ads_images)
-
+        state = view.findViewById(R.id.state)
     }
 
     private fun setupListeners() {
@@ -113,9 +114,19 @@ class AdvertisementDetailFragment : BaseFragment() {
         tvInitialBetVal.text = ad.price.toString()
         tvBetStepVal.text = ad.betStep.toString()
         tvDescriptionVal.text = ad.description
-        tvStartDate.text = "${ad.date} ${ad.date}"
-        tvEndOfRegistrationDate.text = "${ad.date} ${ad.date}"
-
+        val startDate = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
+        tvStartDate.text = startDate
+        val endDate = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
+        tvEndOfRegistrationDate.text = endDate
+        //TODO матчинг строки и проверка currentdate >= startdate && < endDate inprogress
+        // currentdate < startdate inwaiting
+        // currentdate > endDate Closed
+        if (startDate == "") {
+            state.text = "In progress"
+        } else {
+            state.text = "In waiting"
+        }
+        adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
     }
 
     companion object {
