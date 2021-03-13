@@ -1,5 +1,6 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

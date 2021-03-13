@@ -70,6 +70,7 @@ class AdvertisementDetailFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         adId = arguments?.getString(KEY_AD_ID)
+        Log.d("myLogs", "adId = $adId")
         adId?.let { viewModel.loadAd(it) }
     }
 
@@ -106,6 +107,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(DetailsViewModel::class.java)
         viewModel.ad.observe(this.viewLifecycleOwner, {
             showAd(it)
+            Log.d("myLogs", it.toString())
         })
     }
 

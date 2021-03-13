@@ -70,7 +70,6 @@ class AdsListFragment : Fragment() {
     private fun setUpViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewItemViewModel::class.java)
         viewModel.updateAdvertisementData()
-        Log.d("ads", viewModel.adsList.value.toString())
 
         viewModel.adsList.observe(this.viewLifecycleOwner, {
             updateAds(it)

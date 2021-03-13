@@ -7,11 +7,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
-import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 
 class AdvDetailsViewPagerAdapter : RecyclerView.Adapter<DetailsPagerViewHolder>() {
 
-    private var images: List<ItemImage> = emptyList()
+    private var images: List<String> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailsPagerViewHolder {
         return DetailsPagerViewHolder(
@@ -25,7 +24,7 @@ class AdvDetailsViewPagerAdapter : RecyclerView.Adapter<DetailsPagerViewHolder>(
 
     override fun getItemCount(): Int = images.size
 
-    fun bindImages(newImages: List<ItemImage>) {
+    fun bindImages(newImages: List<String>) {
         images = newImages
         notifyDataSetChanged()
     }
@@ -35,9 +34,9 @@ class AdvDetailsViewPagerAdapter : RecyclerView.Adapter<DetailsPagerViewHolder>(
 class DetailsPagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val ivItem: ImageView = itemView.findViewById(R.id.ivDetailsItem)
 
-    fun bind(itemImage: ItemImage) {
+    fun bind(itemImage: String) {
         Glide.with(itemView)
-            .load(itemImage.bgImage)
+            .load(itemImage)
             .placeholder(R.drawable.ic_image_24)
             .into(ivItem)
     }

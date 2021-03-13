@@ -26,17 +26,17 @@ class AdvCreationRepository @Inject constructor(
     private var rPrice: Float = 0.0f
     private var rBetStep: Float = 0.0f
     private var rDescription: String = ""
-    private var rDate: String? = ""
-    private var rTime: String? = ""
+    private var rDate: String = ""
+    private var rTime: String = ""
 
     private suspend fun createAdvertismentModel(
-        _title: String?,
+        _title: String,
         _images: List<String>,
         _price: Float,
         _betStep: Float,
-        _description: String?,
-        _date: String?,
-        _time: String?
+        _description: String,
+        _date: String,
+        _time: String
     ): Advertisement = withContext(Dispatchers.IO) {
         val uniqueId = createUniqueId()
         val currentUserUid = firebaseAuth.currentUser.uid
@@ -51,8 +51,7 @@ class AdvCreationRepository @Inject constructor(
             betStep = _betStep,
             description = _description,
             date = _date,
-            time = _time,
-            participators = null
+            time = _time
         )
         advertisement
     }
@@ -62,12 +61,8 @@ class AdvCreationRepository @Inject constructor(
     }
 
     suspend fun loadFirstPageData(images: List<ItemImage>, title: String, initialBet: Float, betStep: Float) = withContext(Dispatchers.IO){
-        Log.d("myLogs", "first function go")
-        val job = uploadImagesToStorage(images)
-        Log.d("myLogs", "first function finished")
-        Log.d("myLogs", "second function started")
+        uploadImagesToStorage(images)
         assignValues(listOfUrls, title, initialBet, betStep)
-        Log.d("myLogs", "second function finished")
     }
 
     private suspend fun assignValues(
@@ -118,12 +113,10 @@ class AdvCreationRepository @Inject constructor(
                 }.await()
             }
         }
-        Log.d("myLogs", "End of coroutine")
     }
 
     suspend fun loadSecondPageData(description: String) = withContext(Dispatchers.IO){
         rDescription = description
-        Log.d("myLogs", "images = $rImages, rTitle = $rTitle, rPrice = $rPrice, rBetStep = $rBetStep, description = $description")
     }
 
     suspend fun loadThirdPageDataAndPost(date: String, time: String) = withContext(Dispatchers.IO){
@@ -135,7 +128,7 @@ class AdvCreationRepository @Inject constructor(
 
     private suspend fun loadAdvToDataBase(advertisement: Advertisement) = withContext(Dispatchers.IO){
         val collection = fireStore.collection("advertisements")
-        collection.document()
+        collection.document(advertisement.id)
             .set(advertisement)
             .addOnCompleteListener { Log.d("myLogs", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.d("myLogs", "Error writing document", e) }
