@@ -1,15 +1,17 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
+import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.AdvCreationRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.LoginRegisterRepository
 import javax.inject.Inject
 
 class NewItemViewModel @Inject constructor(
     //TODO: Заменить репозиторий
-    private val loginRegisterRepository: LoginRegisterRepository
+    private val advCreationRepository: AdvCreationRepository
 ) : ViewModel() {
 
-    private var _images: List<String>? = listOf()
+    private var _images: List<ItemImage>? = listOf()
     private var _title: String? = null
     private var _initialBet: Float = 0.0f
     private var _betStep: Float = 0.0f
@@ -17,7 +19,7 @@ class NewItemViewModel @Inject constructor(
     private var _date: String? = null
     private var _time: String? = null
 
-    fun setFirstPageData(images: List<String>, title: String, initialBet: Float, betStep: Float) {
+    fun setFirstPageData(images: List<ItemImage>, title: String, initialBet: Float, betStep: Float) {
         _images = images
         _title = title
         _initialBet = initialBet
