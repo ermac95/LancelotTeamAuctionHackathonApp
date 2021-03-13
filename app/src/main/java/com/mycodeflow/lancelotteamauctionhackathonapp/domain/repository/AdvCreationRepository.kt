@@ -24,21 +24,21 @@ class AdvCreationRepository @Inject constructor(
     private var rPrice: Float = 0.0f
     private var rBetStep: Float = 0.0f
     private var rDescription: String = ""
-    private var rDate: String? = ""
-    private var rTime: String? = ""
+    private var rDate: String = ""
+    private var rTime: String = ""
 
     private suspend fun createAdvertismentModel(
-        _title: String?,
-        _images: List<ItemImage>?,
+        _title: String,
+        _images: List<ItemImage>,
         _price: Float,
         _betStep: Float,
-        _description: String?,
-        _date: String?,
-        _time: String?
+        _description: String,
+        _date: String,
+        _time: String
     ): Advertisement = withContext(Dispatchers.IO) {
         val uniqueId = createUniqueId()
         val currentUserUid = firebaseAuth.currentUser.uid
-        val poster = _images?.get(0)?.bgImage
+        val poster = _images.get(0).bgImage
         val advertisement = Advertisement(
             id = uniqueId,
             ownerUid = currentUserUid,
@@ -50,7 +50,8 @@ class AdvCreationRepository @Inject constructor(
             description = _description,
             date = _date,
             time = _time,
-            participators = null
+            participators = emptyList(),
+            statusActive = false
         )
         advertisement
     }
@@ -76,7 +77,7 @@ class AdvCreationRepository @Inject constructor(
 
     private suspend fun loadAdvToDataBase(advertisement: Advertisement) = withContext(Dispatchers.IO){
         val collection = fireStore.collection("advertisements")
-        collection.document()
+        collection.document(advertisement.id)
             .set(advertisement)
             .addOnCompleteListener { Log.d("myLogs", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.d("myLogs", "Error writing document", e) }

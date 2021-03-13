@@ -61,9 +61,10 @@ class AdvertisementDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews(view)
+        findView(view)
         setupListeners()
         setUpViewModel()
+        setUpView()
     }
 
     override fun onStart() {
@@ -77,7 +78,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         listener = null
     }
 
-    private fun setupViews(view: View) {
+    private fun findView(view: View) {
         ivBackButton = view.findViewById(R.id.back_button)
         tvTitle = view.findViewById(R.id.tv_title)
         tvInitialBetVal = view.findViewById(R.id.tv_initialBetValue)
@@ -88,7 +89,11 @@ class AdvertisementDetailFragment : BaseFragment() {
         btnRegister = view.findViewById(R.id.btn_auction_reg_or_betUp)
         viewPagerContainer = view.findViewById(R.id.viewpager_container)
         adsImages = view.findViewById(R.id.ads_images)
+    }
 
+    private fun setUpView() {
+        tvTitle.text = viewModel.ad.value?.title
+        tvDescriptionVal.text = viewModel.ad.value?.description
     }
 
     private fun setupListeners() {
