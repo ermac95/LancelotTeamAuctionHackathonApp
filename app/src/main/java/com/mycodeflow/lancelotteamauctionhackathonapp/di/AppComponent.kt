@@ -3,6 +3,7 @@ package com.mycodeflow.lancelotteamauctionhackathonapp.di
 import android.content.Context
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdsListFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdvertisementDetailFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.LoginFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.RegistrationFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
@@ -32,5 +33,7 @@ interface AppComponent {
     fun inject(frag: NewItemThirdPageFragment)
 
     fun inject(frag: AdsListFragment)
+
+    fun inject(frag: AdvertisementDetailFragment)
 
 }

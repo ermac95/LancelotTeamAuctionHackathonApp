@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdsListFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads.AdvertisementDetailFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.LoginFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorization.RegistrationFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
         //navigation
         if (savedInstanceState == null){
             navigateTo(FragsNav.AS)
+            //navigateToDetails("FQyYWGehtMv1trh3OmiO")
         }
     }
 
@@ -60,6 +62,13 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
 
     override fun forwardPageTransaction(frag: FragsNav) {
         navigateTo(frag)
+    }
+
+    override fun navigateToDetails(adId: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, AdvertisementDetailFragment.newInstance(adId))
+            .addToBackStack(AdvertisementDetailFragment::class.java.name)
+            .commit()
     }
 
     override fun createNewAd() {
