@@ -91,7 +91,7 @@ class RegistrationFragment : Fragment() {
                     userConfirmPass.error = "Please confirm your password"
                     return@setOnClickListener
                 }
-                else -> viewModel.register(userName.text.toString(), userPass.text.toString())
+                else -> viewModel.register(userEmail.text.toString(), userPass.text.toString())
             }
         }
     }
