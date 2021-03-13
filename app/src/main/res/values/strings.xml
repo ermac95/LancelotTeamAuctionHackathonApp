@@ -39,4 +39,17 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="username">Username</string>
     <string name="advertisements">Advertisements</string>
+    <string name="title_textView">Advertisement Title</string>
+    <string name="tv_initialBet">Initial Bet:</string>
+    <string name="tv_initialBetValue">50000</string>
+    <string name="tv_betStep">Bet Step: </string>
+    <string name="tv_betStepValue">1000</string>
+    <string name="btn_back">Back</string>
+    <string name="tv_AdvertisementDescription">Description:</string>
+    <string name="tv_descriptionValue">Multiline Advertisement Description Example</string>
+    <string name="tv_auctionStart">Auction Starts at:</string>
+    <string name="tv_auctionStartDate">14.03.2021 14:00</string>
+    <string name="tv_end_of_registration">End Of Registration:</string>
+    <string name="tv_end_of_registration_date">14.03.2021 10:00</string>
+    <string name="btn_register_auction">Register or Bet Up</string>
 </resources>
