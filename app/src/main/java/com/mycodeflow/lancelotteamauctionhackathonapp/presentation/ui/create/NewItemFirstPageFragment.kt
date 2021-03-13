@@ -131,7 +131,7 @@ class NewItemFirstPageFragment : BaseFragment() {
                         betStepText.toFloat()
                     )
                     Log.d("viewModel",
-                        "titleText - $titleText, betText - $betText, betStepText - $betStepText")
+                        "images ${images.size} titleText - $titleText, betText - $betText, betStepText - $betStepText")
                     listener?.forwardPageTransaction(FragsNav.NI2)
                 }
             }
