@@ -17,11 +17,8 @@ class NewItemViewModel @Inject constructor(
 
     private val coroutineScope = viewModelScope
 
-    private val mutableAdvertisementItem = MutableLiveData<Advertisement>()
-    val advertisementItem: LiveData<Advertisement> get() = mutableAdvertisementItem
-
-    private val mutableAdsList = MutableLiveData<Advertisement>()
-    val adsList: LiveData<Advertisement> get() = mutableAdsList
+    private val mutableAdsList = MutableLiveData<List<Advertisement>>(emptyList())
+    val adsList: LiveData<List<Advertisement>> get() = mutableAdsList
 
 
     fun setFirstPageData(images: List<ItemImage>, title: String, initialBet: Float, betStep: Float) {
