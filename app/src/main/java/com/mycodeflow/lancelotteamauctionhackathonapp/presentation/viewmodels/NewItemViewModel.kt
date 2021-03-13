@@ -1,17 +1,27 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.AdvCreationRepository
-import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.LoginRegisterRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 import javax.inject.Inject
 
 class NewItemViewModel @Inject constructor(
-    //TODO: Заменить репозиторий
     private val advCreationRepository: AdvCreationRepository
 ) : ViewModel() {
 
-    private var _images: List<ItemImage>? = listOf()
+    private val coroutineScope = viewModelScope
+
+    private val mutableAdvertisementItem = MutableLiveData<Advertisement>()
+    val advertisementItem: LiveData<Advertisement> get() = mutableAdvertisementItem
+
+    private var _images: List<ItemImage>? = emptyList()
     private var _title: String? = null
     private var _initialBet: Float = 0.0f
     private var _betStep: Float = 0.0f
@@ -28,12 +38,21 @@ class NewItemViewModel @Inject constructor(
 
     fun setSecondPageData(description: String) {
         _description = description
-
     }
 
     fun setSecondPageDataAndPost(date: String, time: String) {
         _date = date
         _time = time
-        //TODO Repository.post
+        coroutineScope.launch{
+            mutableAdvertisementItem.value = advCreationRepository.uploadAdvToDataBase(
+                _title,
+                _images,
+                _initialBet,
+                _betStep,
+                _description,
+                _date,
+                _time
+            )
+        }
     }
 }
