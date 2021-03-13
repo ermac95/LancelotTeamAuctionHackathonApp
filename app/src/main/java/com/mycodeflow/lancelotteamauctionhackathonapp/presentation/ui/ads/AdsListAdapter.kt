@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 
-class AdsListAdapter : RecyclerView.Adapter<AdItemViewHolder>() {
+class AdsListAdapter(
+        private var listener: AdsListFragment.AdDetailsClickListener?
+) : RecyclerView.Adapter<AdItemViewHolder>() {
 
     private var advertisements: List<Advertisement> = emptyList()
 
@@ -21,6 +23,9 @@ class AdsListAdapter : RecyclerView.Adapter<AdItemViewHolder>() {
 
     override fun onBindViewHolder(holder: AdItemViewHolder, position: Int) {
         holder.onBind(advertisements[position])
+        holder.itemView.setOnClickListener {
+            listener?.onClick(advertisements[position].id)
+        }
     }
 
     override fun getItemCount(): Int = advertisements.size

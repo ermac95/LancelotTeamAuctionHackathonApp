@@ -23,6 +23,7 @@ class AdsListFragment : Fragment() {
     private lateinit var newAdButton: FloatingActionButton
     private lateinit var rvAdsList: RecyclerView
     private var listener: ButtonClickListener? = null
+    private var adListener: AdDetailsClickListener? = null
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
@@ -32,6 +33,9 @@ class AdsListFragment : Fragment() {
         super.onAttach(context)
         if (context is ButtonClickListener){
             listener = context
+        }
+        if (context is AdDetailsClickListener){
+            adListener = context
         }
         (requireActivity().application as MyApp).appComponent.inject(this)
     }
@@ -48,7 +52,7 @@ class AdsListFragment : Fragment() {
 
         //recycler initialization
         rvAdsList = view.findViewById(R.id.ads_list)
-        rvAdsList.adapter = AdsListAdapter()
+        rvAdsList.adapter = AdsListAdapter(adListener)
         //bottom navigation
         view.findViewById<BottomNavigationView>(R.id.bottom_nav_view).apply {
             background = null
@@ -83,5 +87,9 @@ class AdsListFragment : Fragment() {
 
     interface ButtonClickListener{
         fun createNewAd()
+    }
+
+    interface AdDetailsClickListener {
+        fun onClick(adId: String)
     }
 }
