@@ -1,6 +1,7 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.di
 
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.datasource.SampleDataSource
+import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.AdvCreationRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.LoginRegisterRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import dagger.Module
@@ -12,8 +13,8 @@ class SampleModule {
 
     @Provides
     @Singleton
-    fun provideViewModelFactory(advListRepository: LoginRegisterRepository): BaseViewModelFactory {
-        return BaseViewModelFactory(advListRepository)
+    fun provideViewModelFactory(advListRepository: LoginRegisterRepository, advCreationRepository: AdvCreationRepository): BaseViewModelFactory {
+        return BaseViewModelFactory(advListRepository, advCreationRepository)
     }
 
     @Provides

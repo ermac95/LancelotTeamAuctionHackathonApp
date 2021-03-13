@@ -7,7 +7,7 @@ data class Advertisement(
     val id: String,
     val ownerUid: String,
     val title: String,
-    val poster: Uri,
+    val poster: Uri?,
     val images: List<ItemImage>,
     val price: String,
     val description: String,
