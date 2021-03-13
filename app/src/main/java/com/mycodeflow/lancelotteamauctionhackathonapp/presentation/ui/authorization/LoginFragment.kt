@@ -68,7 +68,7 @@ class LoginFragment : BaseFragment() {
                 return@setOnClickListener
             }
             //TODO
-//            viewModel.login(userName.text.toString(), userPass.text.toString())
+            viewModel.login(userEmail.text.toString(), userPass.text.toString())
         }
     }
 
