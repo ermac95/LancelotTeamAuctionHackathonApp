@@ -21,5 +21,6 @@ open class BaseFragment : Fragment() {
     interface HomeScreenActions {
         fun backPageTransaction()
         fun forwardPageTransaction(frag: FragsNav)
+        fun navigateToDetails(adId: String)
     }
 }
