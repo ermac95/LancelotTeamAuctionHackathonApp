@@ -13,7 +13,7 @@ class AdvDetailRepository @Inject constructor(
     private val fireStore: FirebaseFirestore
 ) {
 
-    suspend fun getAdvertisementById(advId: String): Advertisement? = withContext(Dispatchers.IO){
+    suspend fun getAdvertisementById(advId: String): Advertisement? = withContext(Dispatchers.IO) {
         val data = loadAdvFromFireStore(advId)
         val advertisement = data.toObject<Advertisement>()
         advertisement

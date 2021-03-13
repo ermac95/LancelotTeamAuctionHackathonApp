@@ -41,7 +41,7 @@ class NewItemViewModel @Inject constructor(
 
     fun updateAdvertisementData(){
         coroutineScope.launch {
-            advCreationRepository.getAdvertisementList()
+            mutableAdsList.value = advCreationRepository.getAdvertisementList()
         }
     }
 }

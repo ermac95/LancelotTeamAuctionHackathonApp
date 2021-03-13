@@ -3,11 +3,15 @@ package com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.util.concurrent.ThreadPoolExecutor
 import javax.inject.Inject
 
 class AdvCreationRepository @Inject constructor(
@@ -78,21 +82,19 @@ class AdvCreationRepository @Inject constructor(
             .addOnFailureListener { e -> Log.d("myLogs", "Error writing document", e) }
     }
 
-    suspend fun getAdvertisementList(): List<Advertisement> = withContext(Dispatchers.IO){
-        val adsList: ArrayList<Advertisement> = ArrayList()
-        fireStore.collection("advertisements")
+    suspend fun getAdvertisementList(): List<Advertisement> = withContext(Dispatchers.IO) {
+        val adsList = loadListFromFb()
+        val advertisements = adsList.toObjects<Advertisement>()
+        Log.d("myLogs", "Ads = $advertisements")
+        advertisements
+    }
+
+    suspend fun loadListFromFb(): QuerySnapshot = withContext(Dispatchers.IO){
+        val snapshot = fireStore
+            .collection("advertisements")
             .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("myLogs", "${document.id} => ${document.data}")
-                    val advertisement = document.toObject<Advertisement>()
-                    adsList.add(advertisement)
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("myLogs", "Error getting documents: ", exception)
-            }
-        adsList
+            .await()
+        snapshot
     }
 
     private fun createUniqueId(): String {

@@ -11,9 +11,7 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 
 class AdsListAdapter : RecyclerView.Adapter<AdItemViewHolder>() {
 
-    private var advertisements: List<Advertisement> = listOf(Advertisement(
-        title = "Aaaaaaaaaaaaaaaa"
-    ))
+    private var advertisements: List<Advertisement> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdItemViewHolder {
         return AdItemViewHolder(
@@ -28,6 +26,7 @@ class AdsListAdapter : RecyclerView.Adapter<AdItemViewHolder>() {
     override fun getItemCount(): Int = advertisements.size
 
     fun onBindAds(ads: List<Advertisement>) {
+        advertisements = ads
         notifyDataSetChanged()
     }
 }
@@ -36,8 +35,10 @@ class AdItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val itemImage: ImageView = itemView.findViewById(R.id.front_image)
     private val itemText: TextView = itemView.findViewById(R.id.front_text)
+    private val itemPrice: TextView = itemView.findViewById(R.id.front_price)
 
     fun onBind(item: Advertisement){
         itemText.text = item.title
+        itemPrice.text = item.price.toString()
     }
 }
