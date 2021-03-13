@@ -1,11 +1,13 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
@@ -44,6 +46,9 @@ class AdItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val itemPrice: TextView = itemView.findViewById(R.id.front_price)
 
     fun onBind(item: Advertisement){
+        Glide.with(itemView.context)
+            .load(item.poster)
+            .into(itemImage)
         itemText.text = item.title
         itemPrice.text = item.price.toString()
     }

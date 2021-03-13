@@ -1,26 +1,28 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository
 
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.storage.FirebaseStorage
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ThreadPoolExecutor
 import javax.inject.Inject
 
 class AdvCreationRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val fireStore: FirebaseFirestore
+    private val fireStore: FirebaseFirestore,
+    private val firebaseStorage: FirebaseStorage
     ) {
 
     private var rTitle: String = ""
-    private var rImages: List<ItemImage> = emptyList()
+    private var rImages: List<String> = emptyList()
+    private val listOfUrls: ArrayList<String> = ArrayList()
     private var rPrice: Float = 0.0f
     private var rBetStep: Float = 0.0f
     private var rDescription: String = ""
@@ -29,7 +31,7 @@ class AdvCreationRepository @Inject constructor(
 
     private suspend fun createAdvertismentModel(
         _title: String,
-        _images: List<ItemImage>,
+        _images: List<String>,
         _price: Float,
         _betStep: Float,
         _description: String,
@@ -38,34 +40,83 @@ class AdvCreationRepository @Inject constructor(
     ): Advertisement = withContext(Dispatchers.IO) {
         val uniqueId = createUniqueId()
         val currentUserUid = firebaseAuth.currentUser.uid
-        val poster = _images.get(0).bgImage
+        val imageForPoster = _images[0]
         val advertisement = Advertisement(
             id = uniqueId,
             ownerUid = currentUserUid,
             title = _title,
-            poster = poster,
+            poster = imageForPoster,
             images = _images,
             price = _price,
             betStep = _betStep,
             description = _description,
             date = _date,
-            time = _time,
-            participators = emptyList(),
-            statusActive = false
+            time = _time
         )
         advertisement
     }
 
+    private fun createUniqueId(): String {
+        return fireStore.collection("advertisements").document().id
+    }
+
     suspend fun loadFirstPageData(images: List<ItemImage>, title: String, initialBet: Float, betStep: Float) = withContext(Dispatchers.IO){
-        rImages = images
+        uploadImagesToStorage(images)
+        assignValues(listOfUrls, title, initialBet, betStep)
+    }
+
+    private suspend fun assignValues(
+        listOfUrls: ArrayList<String>,
+        title: String,
+        initialBet: Float,
+        betStep: Float
+    ) = withContext(Dispatchers.IO){
+        rImages = listOfUrls
         rTitle = title
         rPrice = initialBet
         rBetStep = betStep
+        Log.d("myLogs", "rImages = $rImages")
+    }
+
+    private suspend fun uploadImagesToStorage(images: List<ItemImage>) = withContext(Dispatchers.IO) {
+        val ref = firebaseStorage.reference
+        images.forEach { image ->
+            if (image.bgImage != null){
+                //uploading image to storage
+                val file = Uri.parse(image.bgImage)
+                val imageRef = ref.child("images/${file.lastPathSegment}")
+                val uploadTask = imageRef.putFile(file)
+                uploadTask.addOnFailureListener {
+                    Log.d("myLogs", "failed to upload image cuz ${it.message}")
+                }.addOnSuccessListener {
+                    Log.d("myLogs", "Successful image upload")
+                }
+                //getting uploaded image downloadUrl
+                val urlTask = uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    imageRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result
+                        if (downloadUri != null){
+                            listOfUrls.add(downloadUri.toString())
+                            Log.d("myLogs", "List of url = $listOfUrls")
+                        }
+                    } else {
+                        // Handle failures
+                        // ...
+                    }
+                }.await()
+            }
+        }
     }
 
     suspend fun loadSecondPageData(description: String) = withContext(Dispatchers.IO){
         rDescription = description
-        Log.d("myLogs", "images = $rImages, rTitle = $rTitle, rPrice = $rPrice, rBetStep = $rBetStep, description = $description")
     }
 
     suspend fun loadThirdPageDataAndPost(date: String, time: String) = withContext(Dispatchers.IO){
@@ -96,9 +147,5 @@ class AdvCreationRepository @Inject constructor(
             .get()
             .await()
         snapshot
-    }
-
-    private fun createUniqueId(): String {
-        return fireStore.collection("advertisements").document().id
     }
 }

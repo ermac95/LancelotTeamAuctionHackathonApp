@@ -16,9 +16,9 @@ class AdvDetailRepository @Inject constructor(
 
     suspend fun getAdvertisementById(advId: String): Advertisement? = withContext(Dispatchers.IO) {
         val data = loadAdvFromFireStore(advId)
-        Log.d("ad_d", "${data.toString()}")
+        Log.d("myLogs", "${data.toString()}")
         val advertisement = data.toObject<Advertisement>()
-        Log.d("ad_d", "${advertisement.toString()}")
+        Log.d("myLogs", "${advertisement.toString()}")
         advertisement
     }
 
