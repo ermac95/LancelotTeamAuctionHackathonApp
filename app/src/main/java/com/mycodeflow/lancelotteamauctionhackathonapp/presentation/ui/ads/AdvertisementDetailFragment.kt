@@ -89,6 +89,9 @@ class AdvertisementDetailFragment : BaseFragment() {
         viewPagerContainer = view.findViewById(R.id.viewpager_container)
         adsImages = view.findViewById(R.id.ads_images)
 
+
+
+
     }
 
     private fun setupListeners() {
@@ -113,8 +116,10 @@ class AdvertisementDetailFragment : BaseFragment() {
         tvInitialBetVal.text = ad.price.toString()
         tvBetStepVal.text = ad.betStep.toString()
         tvDescriptionVal.text = ad.description
-        tvStartDate.text = "${ad.date} ${ad.date}"
-        tvEndOfRegistrationDate.text = "${ad.date} ${ad.date}"
+        tvStartDate.text = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
+        tvEndOfRegistrationDate.text = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
+
+        //adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
 
     }
 
