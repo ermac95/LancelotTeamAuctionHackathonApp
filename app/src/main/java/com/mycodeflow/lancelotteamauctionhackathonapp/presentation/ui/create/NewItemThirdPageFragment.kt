@@ -39,7 +39,7 @@ class NewItemThirdPageFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
-    private lateinit var viewModel : NewItemViewModel
+    lateinit var viewModel : NewItemViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

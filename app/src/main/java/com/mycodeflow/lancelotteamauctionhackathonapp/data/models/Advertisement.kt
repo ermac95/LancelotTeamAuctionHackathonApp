@@ -1,13 +1,12 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.data.models
 
-import android.net.Uri
 import com.google.firebase.firestore.auth.User
 
 data class Advertisement(
     val id: String,
     val ownerUid: String,
     val title: String?,
-    val poster: Uri?,
+    val poster: String?,
     val images: List<ItemImage>?,
     val price: Float?,
     val betStep: Float?,
