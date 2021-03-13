@@ -4,6 +4,7 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.domain.datasource.SampleDa
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.AdvCreationRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository.LoginRegisterRepository
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.NewItemViewModel
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

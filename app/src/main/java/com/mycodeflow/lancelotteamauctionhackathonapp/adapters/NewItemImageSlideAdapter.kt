@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.ItemImage
@@ -68,6 +69,6 @@ class NewImageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     private val image = itemView.findViewById<ImageView>(R.id.bg_description_image)
 
     fun onBind(item: ItemImage){
-        image.setImageURI(item.bgImage)
+        image.setImageURI(item.bgImage?.toUri())
     }
 }

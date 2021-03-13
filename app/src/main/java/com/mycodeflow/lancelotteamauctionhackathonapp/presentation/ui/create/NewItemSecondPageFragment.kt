@@ -29,7 +29,7 @@ class NewItemSecondPageFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
-    private lateinit var viewModel : NewItemViewModel
+    lateinit var viewModel : NewItemViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -51,6 +51,7 @@ class NewItemSecondPageFragment : BaseFragment() {
         setupViews(view)
         setupListeners()
         setUpViewModel()
+        Log.d("myLogs", "viewModel = $viewModel")
     }
 
     private fun setupViews(view: View){
@@ -60,8 +61,10 @@ class NewItemSecondPageFragment : BaseFragment() {
         description = view.findViewById(R.id.field_detailed_description)
     }
 
+
     private fun setUpViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewItemViewModel::class.java)
+        Log.d("myLogs", "viewModel2 = $viewModel")
     }
 
     private fun setupListeners() {

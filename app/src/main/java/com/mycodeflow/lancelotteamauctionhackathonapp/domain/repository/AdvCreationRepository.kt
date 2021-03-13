@@ -1,5 +1,6 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.domain.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
@@ -9,13 +10,19 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AdvCreationRepository @Inject constructor(
-    val firebaseAuth: FirebaseAuth,
-    val fireStore: FirebaseFirestore
+    private val firebaseAuth: FirebaseAuth,
+    private val fireStore: FirebaseFirestore
     ) {
 
-    private val collection = fireStore.collection("advertisements")
+    private var rTitle: String = ""
+    private var rImages: List<ItemImage> = emptyList()
+    private var rPrice: Float = 0.0f
+    private var rBetStep: Float = 0.0f
+    private var rDescription: String = ""
+    private var rDate: String? = ""
+    private var rTime: String? = ""
 
-    suspend fun uploadAdvToDataBase(
+    private suspend fun createAdvertismentModel(
         _title: String?,
         _images: List<ItemImage>?,
         _price: Float,
@@ -40,15 +47,37 @@ class AdvCreationRepository @Inject constructor(
             time = _time,
             participators = null
         )
-        loadAdvToDatabase(advertisement)
         advertisement
     }
 
-    private fun loadAdvToDatabase(advertisement: Advertisement) {
-        collection.document(advertisement.id).set(advertisement)
+    suspend fun loadFirstPageData(images: List<ItemImage>, title: String, initialBet: Float, betStep: Float) = withContext(Dispatchers.IO){
+        rImages = images
+        rTitle = title
+        rPrice = initialBet
+        rBetStep = betStep
+    }
+
+    suspend fun loadSecondPageData(description: String) = withContext(Dispatchers.IO){
+        rDescription = description
+        Log.d("myLogs", "images = $rImages, rTitle = $rTitle, rPrice = $rPrice, rBetStep = $rBetStep, description = $description")
+    }
+
+    suspend fun loadThirdPageDataAndPost(date: String, time: String) = withContext(Dispatchers.IO){
+        rDate = date
+        rTime = time
+        val advertisement = createAdvertismentModel(rTitle, rImages, rPrice, rBetStep, rDescription, rDate, rTime)
+        loadAdvToDataBase(advertisement)
+    }
+
+    private suspend fun loadAdvToDataBase(advertisement: Advertisement) = withContext(Dispatchers.IO){
+        val collection = fireStore.collection("advertisements")
+        collection.document()
+            .set(advertisement)
+            .addOnCompleteListener { Log.d("myLogs", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.d("myLogs", "Error writing document", e) }
     }
 
     private fun createUniqueId(): String {
-        return collection.document().id
+        return fireStore.collection("advertisements").document().id
     }
 }

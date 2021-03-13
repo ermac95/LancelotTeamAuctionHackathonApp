@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
         setContentView(R.layout.activity_main)
         //navigation
         if (savedInstanceState == null){
-            navigateTo(FragsNav.LS)
+            navigateTo(FragsNav.AS)
         }
     }
 

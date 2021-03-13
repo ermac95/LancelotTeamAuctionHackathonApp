@@ -70,10 +70,13 @@ class NewItemFirstPageFragment : BaseFragment() {
         setupViews(view)
         setupListeners()
         setUpViewModel()
+        Log.d("myLogs", "viewModel = $viewModel")
     }
+
 
     private fun setUpViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewItemViewModel::class.java)
+        Log.d("myLogs", "viewModel = $viewModel")
     }
 
     private fun setupViews(view: View) {
@@ -96,7 +99,7 @@ class NewItemFirstPageFragment : BaseFragment() {
     }
 
     private fun setImageSelected(url: Uri) {
-        val newItem = ItemImage(url)
+        val newItem = ItemImage(url.toString())
         sliderAdapter.addNewItem(newItem)
     }
 
