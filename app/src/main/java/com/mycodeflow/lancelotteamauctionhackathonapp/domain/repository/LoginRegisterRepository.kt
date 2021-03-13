@@ -10,15 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class LoginRegisterRepository @Inject constructor() {
-
-    private val firebaseAuth: FirebaseAuth by lazy {
-        FirebaseAuth.getInstance()
-    }
-
-    private val fireStore: FirebaseFirestore by lazy {
-        FirebaseFirestore.getInstance()
-    }
+class LoginRegisterRepository @Inject constructor(
+    val firebaseAuth: FirebaseAuth,
+    val fireStore: FirebaseFirestore
+) {
 
     private val userMutableLiveData = MutableLiveData<FirebaseUser>()
     val currentUser: LiveData<FirebaseUser> get() = userMutableLiveData
