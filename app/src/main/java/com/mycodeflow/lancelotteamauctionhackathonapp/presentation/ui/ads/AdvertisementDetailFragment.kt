@@ -164,7 +164,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         }
 
 
-        btnRegister.visibility = if (firebaseAuth.currentUser.uid == ad.ownerUid) View.VISIBLE else View.INVISIBLE
+        btnRegister.visibility = if (firebaseAuth.currentUser.uid != ad.ownerUid) View.VISIBLE else View.INVISIBLE
 
     }
 
