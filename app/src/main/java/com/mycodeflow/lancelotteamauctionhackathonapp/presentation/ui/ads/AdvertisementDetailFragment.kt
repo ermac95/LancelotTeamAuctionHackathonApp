@@ -1,6 +1,9 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.ads
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +13,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
@@ -18,6 +23,7 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.DetailsViewModel
+import com.mycodeflow.lancelotteamauctionhackathonapp.utils.ReminderBroadcast
 import javax.inject.Inject
 
 
@@ -99,7 +105,27 @@ class AdvertisementDetailFragment : BaseFragment() {
             listener?.backPageTransaction()
         }
         btnRegister.setOnClickListener {
-            adId?.let { id -> viewModel.registerOnAd(id) }
+            adId?.let { id ->
+                viewModel.registerOnAd(id)
+                val intent = Intent(requireContext(), ReminderBroadcast::class.java)
+
+                val contentUri = "com.mycodeflow.lancelotteamauctionhackathonapp://ad/${id}".toUri()
+                intent.setAction(Intent.ACTION_VIEW)
+                    .setData(contentUri)
+                val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
+                val alarmManager: AlarmManager =
+                    requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+                val currentTime = System.currentTimeMillis()
+
+                val tenSeconds = 5000L
+
+                alarmManager.set(
+                    AlarmManager.RTC_WAKEUP,
+                    currentTime + tenSeconds,
+                    pendingIntent
+                )
+            }
         }
     }
 
@@ -132,7 +158,7 @@ class AdvertisementDetailFragment : BaseFragment() {
     }
 
     companion object {
-        fun newInstance(adId: String) : AdvertisementDetailFragment {
+        fun newInstance(adId: String): AdvertisementDetailFragment {
             val args = Bundle()
             args.putString(KEY_AD_ID, adId)
             val fragment = AdvertisementDetailFragment()

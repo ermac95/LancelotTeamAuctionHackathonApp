@@ -54,4 +54,7 @@
     <string name="btn_register_auction">Register or Bet Up</string>
     <string name="state">state</string>
     <string name="tv_date_pattern">%s %s</string>
+    <string name="auction_start_channel_name">Auction start channel</string>
+    <string name="auction_start_channel_description">Notifies when the auction starts</string>
+    <string name="notification_text">The auction has begun</string>
 </resources>
