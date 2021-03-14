@@ -137,7 +137,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         }
         adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
 
-        btnRegister.visibility = if (ad.ownerUid != firebaseAuth.currentUser.uid) View.VISIBLE else View.INVISIBLE
+        btnRegister.visibility = if (ad.ownerUid == firebaseAuth.currentUser.uid) View.VISIBLE else View.INVISIBLE
 
     }
 
