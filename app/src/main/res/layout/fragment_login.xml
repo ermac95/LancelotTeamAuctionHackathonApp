@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
-    android:background="@color/login_bk_color"
     android:focusableInTouchMode="true"
     android:gravity="center"
     tools:context=".presentation.ui.authorization.LoginFragment"
-    >
+    android:background="@drawable/profile_bg_gradient">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -41,6 +41,8 @@
                 android:id="@+id/textInputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/bg_third_color"
+                android:background="@color/bg_third_color"
                 android:layout_marginTop="20dp">
 
                 <EditText
@@ -58,6 +60,8 @@
                 android:id="@+id/textInputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/bg_third_color"
+                android:background="@color/bg_third_color"
                 android:layout_marginTop="20dp">
 
                 <EditText

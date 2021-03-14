@@ -17,13 +17,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.auth.FirebaseAuth
 import com.mycodeflow.lancelotteamauctionhackathonapp.MyApp
 import com.mycodeflow.lancelotteamauctionhackathonapp.R
 import com.mycodeflow.lancelotteamauctionhackathonapp.data.models.Advertisement
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.BaseFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.BaseViewModelFactory
-import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.DetailsViewModel
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.ReminderBroadcast
+import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.viewmodels.DetailsViewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
@@ -34,6 +38,9 @@ class AdvertisementDetailFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: BaseViewModelFactory
+
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     private lateinit var ivBackButton: ImageView
     private lateinit var tvTitle: TextView
@@ -126,6 +133,7 @@ class AdvertisementDetailFragment : BaseFragment() {
                     pendingIntent
                 )
             }
+            btnRegister.text = getString(R.string.registration_text)
         }
     }
 
@@ -139,22 +147,34 @@ class AdvertisementDetailFragment : BaseFragment() {
 
     private fun showAd(ad: Advertisement) {
         tvTitle.text = ad.title
-        tvInitialBetVal.text = ad.price.toString()
-        tvBetStepVal.text = ad.betStep.toString()
+        tvInitialBetVal.text = ad.price.toInt().toString()
+        tvBetStepVal.text = ad.betStep.toInt().toString()
         tvDescriptionVal.text = ad.description
         val startDate = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
         tvStartDate.text = startDate
-        val endDate = requireContext().getString(R.string.tv_date_pattern, ad.date, ad.time)
+        val endRegDate = getEndRegistrationTime(ad.date)
+        val endDate = requireContext().getString(R.string.tv_date_pattern, endRegDate, ad.time)
         tvEndOfRegistrationDate.text = endDate
-        //TODO матчинг строки и проверка currentdate >= startdate && < endDate inprogress
-        // currentdate < startdate inwaiting
-        // currentdate > endDate Closed
+
         if (startDate == "") {
             state.text = "In progress"
         } else {
             state.text = "In waiting"
         }
         adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
+
+        btnRegister.visibility = if (firebaseAuth.currentUser.uid == ad.ownerUid) View.VISIBLE else View.INVISIBLE
+
+    }
+
+    private fun getEndRegistrationTime(date: String): String {
+        val sdf: DateFormat = SimpleDateFormat("dd MMMM yyyy")
+        val date: Date = sdf.parse(date)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.add(Calendar.DAY_OF_MONTH, -1)
+        val calDayAgo = calendar.time
+        return sdf.format(calDayAgo)
     }
 
     companion object {

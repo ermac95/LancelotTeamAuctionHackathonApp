@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/profile_bg_gradient">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="28dp"
-            android:text="@string/state"
+            tools:text="@string/state"
             android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold"
@@ -56,12 +57,14 @@
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/title_textView"
             android:textColor="@color/darkTextColor"
+            android:textStyle="bold"
+            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,14 +73,13 @@
         <TextView
             android:id="@+id/tv_initialBet"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/tv_initialBet"
             android:textColor="@color/darkTextColor"
-            app:layout_constraintEnd_toStartOf="@+id/tv_initialBetValue"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
         <TextView
@@ -87,7 +89,9 @@
             android:layout_marginTop="16dp"
             android:text="@string/tv_initialBetValue"
             android:textColor="@color/darkTextColor"
-            app:layout_constraintEnd_toStartOf="@+id/tv_betStep"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_initialBet"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -99,7 +103,9 @@
             android:layout_marginTop="16dp"
             android:text="@string/tv_betStep"
             android:textColor="@color/darkTextColor"
-            app:layout_constraintEnd_toStartOf="@+id/tv_betStepValue"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
+            android:layout_marginStart="55dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_initialBetValue"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
@@ -108,12 +114,13 @@
             android:id="@+id/tv_betStepValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:text="@string/tv_betStepValue"
             android:textColor="@color/darkTextColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/tv_betStep"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -125,13 +132,15 @@
             android:layout_marginTop="16dp"
             android:text="@string/tv_AdvertisementDescription"
             android:textColor="@color/darkTextColor"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_initialBet" />
 
         <TextView
             android:id="@+id/tv_descriptionValue"
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:lines="3"
             android:maxLines="5"
@@ -139,7 +148,7 @@
             android:singleLine="false"
             android:text="@string/tv_descriptionValue"
             android:textColor="@color/darkTextColor"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/tv_betStepValue"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_initialBet"
@@ -153,6 +162,8 @@
             android:layout_marginTop="16dp"
             android:text="@string/tv_auctionStart"
             android:textColor="@color/darkTextColor"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_descriptionValue" />
 
@@ -163,6 +174,7 @@
             android:layout_marginStart="32dp"
             android:text="@string/tv_auctionStartDate"
             android:textColor="@color/darkTextColor"
+            android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_auctionStart"
             app:layout_constraintStart_toEndOf="@+id/tv_auctionStart" />
 
@@ -174,6 +186,8 @@
             android:layout_marginTop="16dp"
             android:text="@string/tv_end_of_registration"
             android:textColor="@color/darkTextColor"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_auctionStart" />
 
@@ -181,8 +195,9 @@
             android:id="@+id/tv_end_of_registration_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_end_of_registration_date"
+            android:text="@string/end_of_registration_date"
             android:textColor="@color/darkTextColor"
+            android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_end_of_registration"
             app:layout_constraintStart_toStartOf="@+id/tv_auctionStartDate" />
 

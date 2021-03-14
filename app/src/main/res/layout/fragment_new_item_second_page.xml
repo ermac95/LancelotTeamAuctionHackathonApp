@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/profile_bg_gradient"
     tools:context="presentation.ui.create.NewItemFirstPageFragment">
 
     <ImageView
@@ -48,14 +49,16 @@
 
     <EditText
         android:id="@+id/field_detailed_description"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dp"
         android:background="@drawable/text_field_bg"
-        app:boxBackgroundMode="none"
+        app:boxBackgroundMode="filled"
         android:textSize="14sp"
         android:textStyle="italic"
         android:textColor="@color/black"
+        android:textAlignment="textStart"
         android:hint="@string/enter_your_item_title"
         android:padding="10dp"
         android:layout_marginTop="10dp"

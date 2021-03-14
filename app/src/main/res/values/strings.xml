@@ -38,7 +38,7 @@
     <string name="register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="username">Username</string>
-    <string name="advertisements">Advertisements</string>
+    <string name="advertisements">Auction items</string>
     <string name="title_textView">Advertisement Title</string>
     <string name="tv_initialBet">Initial Bet:</string>
     <string name="tv_initialBetValue">50000</string>
@@ -52,8 +52,11 @@
     <string name="tv_end_of_registration">End Of Registration:</string>
     <string name="tv_end_of_registration_date">14.03.2021 10:00</string>
     <string name="btn_register_auction">Register or Bet Up</string>
-    <string name="state">state</string>
+    <string name="state">Status</string>
     <string name="tv_date_pattern">%s %s</string>
+    <string name="inactive">Inactive</string>
+    <string name="end_of_registration_date">14.03.2021 10:00</string>
+    <string name="registration_text">Successfully registered</string>
     <string name="auction_start_channel_name">Auction start channel</string>
     <string name="auction_start_channel_description">Notifies when the auction starts</string>
     <string name="notification_text">The auction has begun</string>
