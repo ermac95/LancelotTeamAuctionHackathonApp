@@ -146,6 +146,7 @@ class AdvertisementDetailFragment : BaseFragment() {
     }
 
     private fun showAd(ad: Advertisement) {
+        adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
         tvTitle.text = ad.title
         tvInitialBetVal.text = ad.price.toInt().toString()
         tvBetStepVal.text = ad.betStep.toInt().toString()
@@ -161,7 +162,7 @@ class AdvertisementDetailFragment : BaseFragment() {
         } else {
             state.text = "In waiting"
         }
-        adsImages.adapter = AdvDetailsViewPagerAdapter().also { it.bindImages(ad.images) }
+
 
         btnRegister.visibility = if (firebaseAuth.currentUser.uid == ad.ownerUid) View.VISIBLE else View.INVISIBLE
 
