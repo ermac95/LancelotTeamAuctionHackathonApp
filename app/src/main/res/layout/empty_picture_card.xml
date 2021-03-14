@@ -4,7 +4,7 @@
     android:id="@+id/add_picture_card"
     android:layout_width="150dp"
     android:layout_height="150dp"
-    android:background="@color/bg_gray"
+    android:background="@drawable/text_field_bg"
     android:layout_marginRight="7dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 

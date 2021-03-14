@@ -50,6 +50,7 @@ class AdItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .load(item.poster)
             .into(itemImage)
         itemText.text = item.title
-        itemPrice.text = item.price.toString()
+        val price = "${item.price.toInt()} RUB"
+        itemPrice.text = price
     }
 }

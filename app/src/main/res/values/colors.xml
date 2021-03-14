@@ -10,4 +10,12 @@
     <color name="bg_gray">#B0BEC5</color>
     <color name="login_bk_color">#fff</color>
     <color name="darkTextColor">#020000</color>
+    <color name="bg_first_color">#4DD0E1</color>
+    <color name="bg_second_color">#03A9F4</color>
+    <color name="bg_item_first_color">#ECEFF1</color>
+    <color name="lot_inactive_status">#ef5350</color>
+    <color name="lot_active_status">#43A047</color>
+    <color name="bg_third_color">#B2EBF2</color>
+    <color name="bg_text_field">#B3E5FC</color>
+    <color name="bg_text_field_stroke">#81D4FA</color>
 </resources>
