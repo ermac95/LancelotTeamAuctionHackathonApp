@@ -44,6 +44,7 @@ class AdItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val itemImage: ImageView = itemView.findViewById(R.id.front_image)
     private val itemText: TextView = itemView.findViewById(R.id.front_text)
     private val itemPrice: TextView = itemView.findViewById(R.id.front_price)
+    private val startTime: TextView = itemView.findViewById(R.id.front_date)
 
     fun onBind(item: Advertisement){
         Glide.with(itemView.context)
@@ -52,5 +53,6 @@ class AdItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemText.text = item.title
         val price = "${item.price.toInt()} RUB"
         itemPrice.text = price
+        startTime.text = "Start on: ${item.date}"
     }
 }

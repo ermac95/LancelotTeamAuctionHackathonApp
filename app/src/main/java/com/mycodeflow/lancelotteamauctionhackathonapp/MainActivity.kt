@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
     private fun startFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, fragment)
+                .setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left)
                 .addToBackStack(fragment::class.java.name)
                 .commit()
     }
