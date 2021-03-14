@@ -1,5 +1,6 @@
 package com.mycodeflow.lancelotteamauctionhackathonapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,18 +12,33 @@ import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.authorizat
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemFirstPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemSecondPageFragment
 import com.mycodeflow.lancelotteamauctionhackathonapp.presentation.ui.create.NewItemThirdPageFragment
+import com.mycodeflow.lancelotteamauctionhackathonapp.utils.AndroidNotifications
 import com.mycodeflow.lancelotteamauctionhackathonapp.utils.FragsNav
+import com.mycodeflow.lancelotteamauctionhackathonapp.utils.Notifications
 
 class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
     AdsListFragment.ButtonClickListener {
+    private val notifications: Notifications by lazy { AndroidNotifications() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        notifications.initialize(this)
+
         //navigation
         if (savedInstanceState == null){
             navigateTo(FragsNav.LS)
 //            navigateToDetails("FQyYWGehtMv1trh3OmiO")
+            intent?.let(::handleIntent)
+            notifications.dismissAll()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent != null) {
+            handleIntent(intent)
         }
     }
 
@@ -77,5 +93,17 @@ class MainActivity : AppCompatActivity(), BaseFragment.HomeScreenActions,
             .replace(R.id.main_container, NewItemFirstPageFragment.newInstance())
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun handleIntent(intent: Intent) {
+        when (intent.action) {
+            Intent.ACTION_VIEW -> {
+                val id = intent.data?.lastPathSegment
+                if (id != null) {
+                    navigateToDetails(id)
+                    notifications.dismiss(id)
+                }
+            }
+        }
     }
 }
